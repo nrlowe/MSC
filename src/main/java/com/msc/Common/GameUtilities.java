@@ -1,7 +1,7 @@
 package com.msc.Common;
 
 public class GameUtilities {
-    public int[] parseUserInput(String input) {
+    public static int[] parseUserInput(String input) {
         int[] selection = new int[2];
         try{
             String[] split = input.split(",");
@@ -19,7 +19,7 @@ public class GameUtilities {
         return selection;
     }
 
-    public boolean validGameCell(int x, int y, int n){
+    public static boolean validGameCell(int x, int y, int n){
         return false;
     }
 }

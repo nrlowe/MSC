@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.msc.Common.GamePhrases;
 import com.msc.Common.GameUtilities;
 import com.msc.GameItems.GameBoard;
+import com.msc.GameItems.GameCell;
 import com.msc.GameItems.GameState;
 
 @SpringBootApplication
@@ -34,10 +35,20 @@ public class MscApplication {
 			if(GS.setup){
 				System.out.println(GamePhrases.INTRO_TEXT);
 				System.out.println(GamePhrases.INPUT_HELP_TEXT);
-				inputs.take();
-				String setupInput = inputs.poll();
+				String setupInput = inputs.take();
 				int[] setUp = GameUtilities.parseUserInput(setupInput);
-				GS.SetUp(setUp[0], setUp[1]);
+				GS.SetUp(setUp[0], setUp[1]);	
+			}
+			if(GS.inProgress){
+				GameBoard GB = GS.getGameBoard();
+				for(int r = 0; r < GB.returnGameBoardRow(0).length; r++){
+					GameCell[] row = GB.returnGameBoardRow(r);
+					for(GameCell cell : row){
+						System.out.print(cell.clicked ? " " + cell.flag + " " : " X ");//num index on top row/first column?
+					}
+					System.out.println();
+				}
+				inputs.take();
 			}
 		}
 		//SpringApplication.run(MscApplication.class, args);

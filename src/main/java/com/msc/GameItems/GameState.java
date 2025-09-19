@@ -16,4 +16,8 @@ public class GameState {
         this.setup = false;
         this.inProgress = true;
     }
+
+    public GameBoard getGameBoard() {
+        return this.gameBoard;
+    }
 }

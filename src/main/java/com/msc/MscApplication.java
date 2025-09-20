@@ -3,6 +3,7 @@ package com.msc;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -18,7 +19,12 @@ import com.msc.GameItems.GameState;
 @SpringBootApplication
 public class MscApplication {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws Exception {//need graceful exception handeling
+		mainGameFlow(new BufferedReader(new InputStreamReader(System.in)), System.out);
+		//SpringApplication.run(MscApplication.class, args);
+	}
+
+	public static void mainGameFlow(BufferedReader in, PrintStream out) throws Exception {
 		System.out.print("\033[2J\033[H");
 		BlockingQueue<String> inputs = new LinkedBlockingQueue<>();
 		Thread inputThread = new Thread(() -> {
@@ -45,7 +51,6 @@ public class MscApplication {
 				inputs.take();
 			}
 		}
-		//SpringApplication.run(MscApplication.class, args);
 	}
 
 	public static void printBoard(GameBoard GB){

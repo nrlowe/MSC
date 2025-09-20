@@ -40,18 +40,32 @@ public class MscApplication {
 				GS.SetUp(setUp[0], setUp[1]);	
 			}
 			if(GS.inProgress){
-				GameBoard GB = GS.getGameBoard();
-				for(int r = 0; r < GB.returnGameBoardRow(0).length; r++){
-					GameCell[] row = GB.returnGameBoardRow(r);
-					for(GameCell cell : row){
-						System.out.print(cell.clicked ? " " + cell.flag + " " : " X ");//num index on top row/first column?
-					}
-					System.out.println();
-				}
+				printBoard(GS.getGameBoard());
+
 				inputs.take();
 			}
 		}
 		//SpringApplication.run(MscApplication.class, args);
+	}
+
+	public static void printBoard(GameBoard GB){
+		int n = GB.returnGameBoardRow(0).length;
+		System.out.print(" G ");
+		for(int i = 0; i < n; i++){
+			System.out.print(" " + i + " ");
+		}
+		System.out.println();
+		int y = 0;
+		for(int r = 0; r < GB.returnGameBoardRow(0).length; r++){
+			GameCell[] row = GB.returnGameBoardRow(r);
+			for(int c = 0; c < row.length; c++){
+				if(c == 0){
+					System.out.print(" " + y++ + " ");
+				}
+				System.out.print(row[c].clicked ? " " + row[c].flag + " " : " X ");
+			}
+			System.out.println();
+		}
 	}
 
 }

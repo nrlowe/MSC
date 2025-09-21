@@ -39,16 +39,14 @@ public class MscApplication {
 		GameState GS = new GameState();
 		while(!GS.terminateState){
 			if(GS.setup){
-				System.out.println(GamePhrases.INTRO_TEXT);
-				System.out.println(GamePhrases.INPUT_HELP_TEXT);
-				String setupInput = inputs.take();
-				int[] setUp = GameUtilities.parseUserInput(setupInput);
+				System.out.println(GamePhrases.GameMessages.INTRO_TEXT);
+				System.out.println(GamePhrases.GameMessages.INPUT_HELP_TEXT);
+				int[] setUp = parseUserInput(inputs);
 				GS.SetUp(setUp[0], setUp[1]);	
 			}
 			if(GS.inProgress){
 				printBoard(GS.getGameBoard());
-
-				inputs.take();
+				int[] userSelection = parseUserInput(inputs);
 			}
 		}
 	}
@@ -71,6 +69,17 @@ public class MscApplication {
 			}
 			System.out.println();
 		}
+	}
+
+	public static int[] parseUserInput(BlockingQueue<String> inputs){
+		int[] r = new int[2];
+		try{
+			String userInput = inputs.take();
+			r = GameUtilities.parseUserInput(userInput);
+		} catch(Exception e) {
+			//handle error
+		}
+		return r;
 	}
 
 }

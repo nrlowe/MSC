@@ -1,5 +1,7 @@
 package com.msc.Common;
 
+import com.msc.GameItems.GameBoard;
+
 public class GameUtilities {
     public static int[] parseUserInput(String input) {
         int[] selection = new int[2];
@@ -14,12 +16,17 @@ public class GameUtilities {
             }
         return selection;
         } catch (Exception e){
-            System.out.println(GamePhrases.USER_INPUT_ERROR);
+            System.out.println(GamePhrases.GameMessages.USER_INPUT_ERROR);
         }
         return selection;
     }
 
     public static boolean validGameCell(int x, int y, int n){
         return false;
+    }
+
+    public static GameBoard updateGameBoard(int[] userMove, GameBoard GB){
+        
+        return GB;
     }
 }

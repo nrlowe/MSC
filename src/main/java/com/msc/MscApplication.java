@@ -44,21 +44,20 @@ public class MscApplication {
 			if(GS.setup){
 				System.out.println(GamePhrases.GameMessages.INTRO_TEXT);
 				System.out.println(GamePhrases.GameMessages.INPUT_HELP_TEXT);
-				GameResponse GR = parseUserInput(inputs, null);
+				GameResponse GR = parseUserInput(inputs, GS);
 				printStatus(GR);
 				GS = GR.getGameState();
 			}
 			if(GS.inProgress){
 				printBoard(GS.getGameBoard());
-				Optional<GameState> optional = Optional.of(GS);
-				GameResponse GR = parseUserInput(inputs, optional);
+				GameResponse GR = parseUserInput(inputs, GS);
 			}
 		}
 	}
 
 	public static void printStatus(GameResponse GR){
 		if(GR.gameStatus.error){
-			System.out.println("Following Error Occure:");
+			System.out.println("Following Error Occured:");
 		}
 		System.out.println(GR.gameStatus.errorMessage);
 	}
@@ -83,8 +82,8 @@ public class MscApplication {
 		}
 	}
 
-	public static GameResponse parseUserInput(BlockingQueue<String> inputs, Optional<GameState> GS){
-		return GameUtilities.parseUserInput(inputs, GS);
+	public static GameResponse parseUserInput(BlockingQueue<String> inputs, GameState GS){
+		return GameUtilities.parseUserInput(inputs, Optional.of(GS));
 	}
 
 	public GameResponse returnGameResponse(int x, int y, GameState gameState){

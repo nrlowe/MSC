@@ -21,7 +21,11 @@ public class GameUtilities {
         return selection;
     }
 
-    public static boolean validGameCell(int x, int y, int n){
+    public static boolean validGameCell(int x, int y, int n, GameBoard GB){
+        int limits = GB.returnGameBoardRow(0).length;
+        if(x >= 0 && x < limits && y < limits && y >= 0){
+            return true;
+        }
         return false;
     }
 

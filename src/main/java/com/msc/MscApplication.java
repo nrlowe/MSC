@@ -11,10 +11,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.msc.Common.GamePhrases;
+import com.msc.Common.GameResponse;
 import com.msc.Common.GameUtilities;
 import com.msc.GameItems.GameBoard;
 import com.msc.GameItems.GameCell;
 import com.msc.GameItems.GameState;
+import com.msc.GameItems.GameStatus;
 
 @SpringBootApplication
 public class MscApplication {
@@ -80,6 +82,11 @@ public class MscApplication {
 			//handle error
 		}
 		return r;
+	}
+
+	public GameResponse returnGameResponse(int x, int y, GameState gameState){
+		GameStatus status = new GameStatus(true, GamePhrases.GameMessages.INPUT_HELP_TEXT, GamePhrases.GameCodes.SUCCESS);
+		return new GameResponse(gameState, status);
 	}
 
 }

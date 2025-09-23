@@ -6,7 +6,7 @@ import com.msc.GameItems.GameState;
 public class GameResponse {
     public GameState gameState;
     public GameStatus gameStatus;
-    
+
     public GameResponse(GameState gameState, GameStatus gameStatus){
         this.gameState = gameState;
         this.gameStatus = gameStatus;
@@ -18,5 +18,9 @@ public class GameResponse {
 
     public GameStatus getgGameStatus(){
         return this.gameStatus;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
     }
 }

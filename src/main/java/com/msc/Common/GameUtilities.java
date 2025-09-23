@@ -1,24 +1,40 @@
 package com.msc.Common;
 
+import java.util.concurrent.BlockingQueue;
+
 import com.msc.GameItems.GameBoard;
+import com.msc.GameItems.GameState;
+import com.msc.GameItems.GameStatus;
+
+import graphql.com.google.common.base.Optional;
 
 public class GameUtilities {
-    public static int[] parseUserInput(String input) {
-        int[] selection = new int[2];
-        try{
-            String[] split = input.split(",");
-            if(split.length != 2){
-                throw new IllegalArgumentException();
-            } else {
-                for(int i = 0; i < 2; i++){
-                 selection[i] = Integer.parseInt(split[i]);
-                }   
+    public static GameResponse parseUserInput(BlockingQueue<String> inputs, Optional<GameState> GO) {
+        try {
+            int[] selection = new int[2];
+            if(GO.isPresent()){ //user move
+                GameState GS = GO.get();
+                return null;
+            } else { //setup
+                GameResponse errorGR = new GameResponse(null, new GameStatus(true, GamePhrases.GameMessages.USER_INPUT_ERROR, GamePhrases.GameCodes.USER_INPUT_ERROR));
+                try{
+                    String input = inputs.take();
+                    String[] split = input.split(",");
+                    if(split.length != 2){
+                        throw new IllegalArgumentException();
+                    } else {
+                        for(int i = 0; i < 2; i++){
+                        selection[i] = Integer.parseInt(split[i]);
+                        }   
+                    }
+                    return new GameResponse(null, new GameStatus(false, null, GamePhrases.GameCodes.SUCCESS));
+                } catch (Exception e){
+                    return errorGR;
+                }
             }
-        return selection;
-        } catch (Exception e){
-            System.out.println(GamePhrases.GameMessages.USER_INPUT_ERROR);
+        } catch(Exception e) {
+            return new GameResponse(null, new GameStatus(false, null, GamePhrases.GameCodes.SUCCESS));
         }
-        return selection;
     }
 
     public static boolean validGameCell(int x, int y, int n, GameBoard GB){

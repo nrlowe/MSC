@@ -10,4 +10,8 @@ public class GameStatus {
         this.errorMessage = message;
         this.errorCode = code;
     }
+
+    public String returnMessage() {
+        return this.errorMessage;
+    }
 }

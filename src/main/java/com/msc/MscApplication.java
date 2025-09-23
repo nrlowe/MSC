@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -43,14 +44,23 @@ public class MscApplication {
 			if(GS.setup){
 				System.out.println(GamePhrases.GameMessages.INTRO_TEXT);
 				System.out.println(GamePhrases.GameMessages.INPUT_HELP_TEXT);
-				int[] setUp = parseUserInput(inputs);
-				GS.SetUp(setUp[0], setUp[1]);	
+				GameResponse GR = parseUserInput(inputs, null);
+				printStatus(GR);
+				GS = GR.getGameState();
 			}
 			if(GS.inProgress){
 				printBoard(GS.getGameBoard());
-				int[] userSelection = parseUserInput(inputs);
+				Optional<GameState> optional = Optional.of(GS);
+				GameResponse GR = parseUserInput(inputs, optional);
 			}
 		}
+	}
+
+	public static void printStatus(GameResponse GR){
+		if(GR.gameStatus.error){
+			System.out.println("Following Error Occure:");
+		}
+		System.out.println(GR.gameStatus.errorMessage);
 	}
 
 	public static void printBoard(GameBoard GB){
@@ -73,15 +83,8 @@ public class MscApplication {
 		}
 	}
 
-	public static int[] parseUserInput(BlockingQueue<String> inputs){
-		int[] r = new int[2];
-		try{
-			String userInput = inputs.take();
-			r = GameUtilities.parseUserInput(userInput);
-		} catch(Exception e) {
-			//handle error
-		}
-		return r;
+	public static GameResponse parseUserInput(BlockingQueue<String> inputs, Optional<GameState> GS){
+		return GameUtilities.parseUserInput(inputs, GS);
 	}
 
 	public GameResponse returnGameResponse(int x, int y, GameState gameState){

@@ -47,10 +47,25 @@ public class MscApplication {
 				GameResponse GR = parseUserInput(inputs, GS);//limits?
 				printStatus(GR);
 				GS = GR.getGameState();
+				printBoard(GS.getGameBoard());
 			}
 			if(GS.inProgress){
-				printBoard(GS.getGameBoard());
 				GameResponse GR = parseUserInput(inputs, GS);
+				if(GR.getgGameStatus().returnCode() == (GamePhrases.GameCodes.SUCCESS_MOVE)){
+					System.out.println(GR.getgGameStatus().returnMessage());
+				} else if(GR.getgGameStatus().returnCode() == (GamePhrases.GameCodes.GAME_OVER)) {
+					System.out.println(GR.getgGameStatus().returnMessage());
+					GS = GR.getGameState();
+					GS.gameOver = true;
+					GS.inProgress = false;
+				} else {//other error, no update 
+					System.out.println(GR.getgGameStatus().returnMessage());
+				}
+				printBoard(GR.getGameState().getGameBoard());
+
+			}
+			if(GS.gameOver){
+
 			}
 		}
 	}

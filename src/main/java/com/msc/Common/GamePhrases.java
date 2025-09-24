@@ -7,10 +7,17 @@ public class GamePhrases {
         public static final String USER_INPUT_ERROR = "Input was in incorrect format";
         public static final String USER_MOVE_ERROR = "Not a valid move!";
         public static final String USER_MOVE_REG = "GameBoard Updated!";
+        public static final String GAME_OVER = "You selected a mine! Game Over!!";
+        public static final String TRY_AGAIN = "Would you like to try again?";
+        public static final String YES = "YES";
+        public static final String NO = "NO";
+        public static final String THANKS = "Thank you for playing!";
     }
     public class GameCodes {
         public static final int SUCCESS = 400;
         public static final int SUCCESS_MOVE = 401;
+        public static final int GAME_OVER = 402;
         public static final int USER_INPUT_ERROR = 100;
+        public static final int EXIT = 500;
     }
 }

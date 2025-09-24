@@ -14,4 +14,8 @@ public class GameStatus {
     public String returnMessage() {
         return this.errorMessage;
     }
+
+    public int returnCode() {
+        return this.errorCode;
+    }
 }

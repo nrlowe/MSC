@@ -56,9 +56,7 @@ public class GameUtilities {
                 }  
             }
             if(validGameCell(selection[0], selection[1], GS.getGameBoard().returnGameBoardRow(0).length)){
-               GameBoard GB = GS.getGameBoard();
-               updateGameBoard(selection, GB);
-               return new GameResponse(GS, new GameStatus(false, GamePhrases.GameMessages.USER_MOVE_REG, GamePhrases.GameCodes.SUCCESS_MOVE));
+               return updateGameBoard(selection, GS);
             } else {
                 errorGR.setGameStatus(new GameStatus(true, GamePhrases.GameMessages.USER_MOVE_ERROR, GamePhrases.GameCodes.USER_INPUT_ERROR));
                 return errorGR;
@@ -79,8 +77,14 @@ public class GameUtilities {
         return false;
     }
 
-    public static void updateGameBoard(int[] userMove, GameBoard GB){//hanlde game over here
+    public static GameResponse updateGameBoard(int[] userMove, GameState GS){
+        GameBoard GB = GS.getGameBoard();
         GameCell gc = GB.getGameBoard()[userMove[0]][userMove[1]];
         gc.clicked = true;
+        if(gc.mine){
+            return new GameResponse(GS, new GameStatus(false, GamePhrases.GameMessages.USER_MOVE_REG, GamePhrases.GameCodes.GAME_OVER));
+        } else {
+            return new GameResponse(GS, new GameStatus(false, GamePhrases.GameMessages.USER_MOVE_REG, GamePhrases.GameCodes.SUCCESS_MOVE));
+        }
     }
 }

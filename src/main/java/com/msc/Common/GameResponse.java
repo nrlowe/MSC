@@ -23,4 +23,8 @@ public class GameResponse {
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 }

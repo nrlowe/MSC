@@ -22,7 +22,7 @@ import com.msc.GameItems.GameStatus;
 @SpringBootApplication
 public class MscApplication {
 
-	public static void main(String[] args) throws Exception {//need graceful exception handeling
+	public static void main(String[] args) throws Exception {
 		mainGameFlow(new BufferedReader(new InputStreamReader(System.in)), System.out);
 		//SpringApplication.run(MscApplication.class, args);
 	}
@@ -44,7 +44,7 @@ public class MscApplication {
 			if(GS.setup){
 				System.out.println(GamePhrases.GameMessages.INTRO_TEXT);
 				System.out.println(GamePhrases.GameMessages.INPUT_HELP_TEXT);
-				GameResponse GR = parseUserInput(inputs, GS);
+				GameResponse GR = parseUserInput(inputs, GS);//limits?
 				printStatus(GR);
 				GS = GR.getGameState();
 			}
@@ -76,7 +76,7 @@ public class MscApplication {
 				if(c == 0){
 					System.out.print(" " + y++ + " ");
 				}
-				System.out.print(row[c].clicked ? " " + row[c].flag + " " : " X ");
+				System.out.print(row[c].clicked ? row[c].mine ?  " " + "M" + " " : " " + row[c].flag + " " : " X ");
 			}
 			System.out.println();
 		}

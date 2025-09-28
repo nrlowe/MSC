@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.msc.Common.GamePhrases;
 import com.msc.Common.GameResponse;
 import com.msc.Common.GameUtilities;
+import com.msc.Common.GamePhrases.GameMessages;
 import com.msc.GameItems.GameBoard;
 import com.msc.GameItems.GameCell;
 import com.msc.GameItems.GameState;
@@ -50,6 +51,7 @@ public class MscApplication {
 				printBoard(GS.getGameBoard());
 			}
 			if(GS.inProgress){
+				// win condition!!
 				GameResponse GR = parseUserInput(inputs, GS);
 				if(GR.getgGameStatus().returnCode() == (GamePhrases.GameCodes.SUCCESS_MOVE)){
 					System.out.println(GR.getgGameStatus().returnMessage());
@@ -65,7 +67,18 @@ public class MscApplication {
 
 			}
 			if(GS.gameOver){
-
+				System.out.println(GameMessages.GAME_OVER);
+				System.out.println(GameMessages.TRY_AGAIN);
+				String input = inputs.take().toUpperCase();
+				if(input.equals("Y") || input.equals(GameMessages.YES)){
+					//reset function?
+					GS.setup = true;
+					GS.gameOver = false;
+					GS.inProgress = false;
+				} else if (input.equals("N") || input.equals(GameMessages.NO)){
+					System.out.println(GameMessages.THANKS);
+					GS.terminateState = true;
+				}
 			}
 		}
 	}

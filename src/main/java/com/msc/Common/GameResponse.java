@@ -6,6 +6,7 @@ import com.msc.GameItems.GameState;
 public class GameResponse {
     public GameState gameState;
     public GameStatus gameStatus;
+    public int[] cellSelection;
 
     public GameResponse(GameState gameState, GameStatus gameStatus){
         this.gameState = gameState;
@@ -26,5 +27,9 @@ public class GameResponse {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public void setCellSelection(int[] cells) {
+        this.cellSelection = cells;
     }
 }

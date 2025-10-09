@@ -10,16 +10,11 @@ import com.msc.GameItems.GameState;
 import com.msc.GameItems.GameStatus;
 
 public class GameUtilities {
-    public static GameResponse parseUserInput(BlockingQueue<String> inputs, Optional<GameState> GO) {
+    public static GameResponse parseUserInput(BlockingQueue<String> inputs, GameState GO) {
         try {
             String input = inputs.take();
-            if(GO.isPresent()){
-                GameState GS = GO.get();
-                GameResponse GR = GS.setup ? parseSetUp(input, GS) : parseMoveInput(input, GS);
-                return GR;
-            } else {
-                throw new Error();
-            }
+            GameResponse GR = GO.setup ? parseSetUp(input, GO) : parseMoveInput(input, GO);
+            return GR;
         } catch(Exception e) {
             return new GameResponse(null, new GameStatus(false, null, GamePhrases.GameCodes.SUCCESS));//unknown
         }
@@ -44,7 +39,7 @@ public class GameUtilities {
                 }  
                 GS.SetUp(selection[0], selection[1]);
             }
-            return new GameResponse(GS, new GameStatus(false, null, GamePhrases.GameCodes.SUCCESS));
+            return new GameResponse(GS, new GameStatus(false, GameMessages.GAMEBOARD_CREATED(selection[0], selection[0], selection[1]), GamePhrases.GameCodes.SUCCESS));
         } catch (Exception e){
             return errorGR;
         }

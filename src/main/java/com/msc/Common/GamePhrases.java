@@ -13,6 +13,9 @@ public class GamePhrases {
         public static final String NO = "NO";
         public static final String THANKS = "Thank you for playing!";
         public static final String GAMEBOARD_LIMITS = "Please keep the grid within 10x10";
+        public static final String GAMEBOARD_CREATED(int x, int y, int mines){
+            return String.format("Grid of %s x %s created with %s mines! ", x, y, mines);
+        } 
     }
     public class GameCodes {
         public static final int SUCCESS = 400;

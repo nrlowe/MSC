@@ -112,7 +112,8 @@ public class MscApplication {
 	}
 
 	public static GameResponse parseUserInput(BlockingQueue<String> inputs, GameState GS){
-		return GameUtilities.parseUserInput(inputs, Optional.of(GS));
+		return GameUtilities.parseUserInput(inputs, GS);
+		//return GameUtilities.parseUserInput(inputs, Optional.of(GS));
 	}
 
 	public GameResponse returnGameResponse(int x, int y, GameState gameState){

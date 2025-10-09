@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.springframework.boot.SpringApplication;
+//import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.msc.Common.GamePhrases;
@@ -51,6 +51,7 @@ public class MscApplication {
 				printBoard(GS.getGameBoard());
 			}
 			if(GS.inProgress){
+				// flag a space
 				// win condition!!
 				GameResponse GR = parseUserInput(inputs, GS);
 				if(GR.getgGameStatus().returnCode() == (GamePhrases.GameCodes.SUCCESS_MOVE)){

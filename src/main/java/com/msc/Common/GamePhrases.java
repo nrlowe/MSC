@@ -12,6 +12,7 @@ public class GamePhrases {
         public static final String YES = "YES";
         public static final String NO = "NO";
         public static final String THANKS = "Thank you for playing!";
+        public static final String GAMEBOARD_LIMITS = "Please keep the grid within 10x10";
     }
     public class GameCodes {
         public static final int SUCCESS = 400;

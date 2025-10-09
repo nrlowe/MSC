@@ -3,6 +3,7 @@ package com.msc.GameItems;
 public class GameCell {
     public int x, y, flag;
     public boolean clicked = false, mine = false;
+    public boolean flagged = false;
 
     public GameCell(int x, int y, int flag){
         this.x = x; 

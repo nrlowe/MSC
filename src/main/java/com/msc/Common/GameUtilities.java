@@ -3,6 +3,7 @@ package com.msc.Common;
 import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 
+import com.msc.Common.GamePhrases.GameMessages;
 import com.msc.GameItems.GameBoard;
 import com.msc.GameItems.GameCell;
 import com.msc.GameItems.GameState;
@@ -33,7 +34,13 @@ public class GameUtilities {
                 throw new IllegalArgumentException();
             } else {
                 for(int i = 0; i < 2; i++){
-                    selection[i] = Integer.parseInt(split[i]);
+                    int v = selection[i] = Integer.parseInt(split[i]);
+                    if(v < 11 && v >= 1 ) {
+                        selection[i] = Integer.parseInt(split[i]);
+                    } else {
+                        errorGR.setGameStatus(new GameStatus(true, GameMessages.GAMEBOARD_LIMITS, GamePhrases.GameCodes.USER_INPUT_ERROR));
+                        throw new Exception();
+                    }
                 }  
                 GS.SetUp(selection[0], selection[1]);
             }

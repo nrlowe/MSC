@@ -13,8 +13,13 @@ public class GameUtilities {
     public static GameResponse parseUserInput(BlockingQueue<String> inputs, GameState GO) {
         try {
             String input = inputs.take();
-            GameResponse GR = GO.setup ? parseSetUp(input, GO) : parseMoveInput(input, GO);
-            return GR;
+            if(input.toLowerCase().equals(GameMessages.HELP)){
+                GameResponse GR = new GameResponse(GO, new GameStatus(false, null, GamePhrases.GameCodes.SUCCESS));
+                GR.getgGameStatus().setShowHelpText(true);
+                return GR;
+            } else {
+                return GO.setup ? parseSetUp(input, GO) : parseMoveInput(input, GO);
+            }
         } catch(Exception e) {
             return new GameResponse(null, new GameStatus(false, null, GamePhrases.GameCodes.SUCCESS));//unknown
         }

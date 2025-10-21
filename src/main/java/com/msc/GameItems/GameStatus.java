@@ -2,6 +2,7 @@ package com.msc.GameItems;
 
 public class GameStatus {
     public boolean error = false;
+    public boolean showHelpText = false;
     public String errorMessage;
     public int errorCode;
 
@@ -17,5 +18,13 @@ public class GameStatus {
 
     public int returnCode() {
         return this.errorCode;
+    }
+
+    public void setShowHelpText(boolean ht){
+        this.showHelpText = ht;
+    }
+    
+    public boolean getShowHelpText(){
+        return showHelpText;
     }
 }

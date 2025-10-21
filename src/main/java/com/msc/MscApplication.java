@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -45,7 +44,11 @@ public class MscApplication {
 			if(GS.setup){
 				System.out.println(GamePhrases.GameMessages.INTRO_TEXT);
 				System.out.println(GamePhrases.GameMessages.INPUT_HELP_TEXT);
+				System.out.println(GamePhrases.GameMessages.INPUT_HELP_HELP_TEXT);
 				GameResponse GR = parseUserInput(inputs, GS);//limits?
+				if(showHelpText(GR)){
+					break;
+				}
 				printStatus(GR);
 				GS = GR.getGameState();
 				printBoard(GS.getGameBoard());
@@ -54,6 +57,9 @@ public class MscApplication {
 				// flag a space
 				// win condition!!
 				GameResponse GR = parseUserInput(inputs, GS);
+				if(showHelpText(GR)){
+					continue;
+				}
 				if(GR.getgGameStatus().returnCode() == (GamePhrases.GameCodes.SUCCESS_MOVE)){
 					System.out.println(GR.getgGameStatus().returnMessage());
 				} else if(GR.getgGameStatus().returnCode() == (GamePhrases.GameCodes.GAME_OVER)) {
@@ -82,6 +88,16 @@ public class MscApplication {
 				}
 			}
 		}
+	}
+
+	public static boolean showHelpText(GameResponse GR){
+		if(GR.getgGameStatus().getShowHelpText()){
+			System.out.println(GameMessages.INPUT_HELP_TEXT);
+			System.out.println(GameMessages.INPUT_FLAG_HELP_TEXT);
+			System.out.println(GameMessages.INPUT_HELP_HELP_TEXT);
+			return true;
+		}
+		return false;
 	}
 
 	public static void printStatus(GameResponse GR){

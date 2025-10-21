@@ -2,8 +2,11 @@ package com.msc.Common;
 
 public class GamePhrases {
     public class GameMessages {
+        public static final String HELP = "help"; 
         public static final String INTRO_TEXT = "To begin please input the size of the grid and number of mines";
         public static final String INPUT_HELP_TEXT = "All entries should be in the pattern of 'NUM,NUM' with no space";
+        public static final String INPUT_FLAG_HELP_TEXT = "To place flags - 'NUM,NUM F' with a space";
+        public static final String INPUT_HELP_HELP_TEXT = "Type 'help' for commands";
         public static final String USER_INPUT_ERROR = "Input was in incorrect format";
         public static final String USER_MOVE_ERROR = "Not a valid move!";
         public static final String USER_MOVE_REG = "GameBoard Updated!";

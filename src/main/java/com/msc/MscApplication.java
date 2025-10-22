@@ -45,17 +45,16 @@ public class MscApplication {
 				System.out.println(GamePhrases.GameMessages.INTRO_TEXT);
 				System.out.println(GamePhrases.GameMessages.INPUT_HELP_TEXT);
 				System.out.println(GamePhrases.GameMessages.INPUT_HELP_HELP_TEXT);
-				GameResponse GR = parseUserInput(inputs, GS);//limits?
+				GameResponse GR = parseUserInput(inputs, GS);
 				if(showHelpText(GR)){
-					break;
+					continue;
 				}
 				printStatus(GR);
 				GS = GR.getGameState();
 				printBoard(GS.getGameBoard());
 			}
 			if(GS.inProgress){
-				// flag a space
-				// win condition!!
+				System.out.println(GamePhrases.GameMessages.INPUT_FLAG_HELP_TEXT);
 				GameResponse GR = parseUserInput(inputs, GS);
 				if(showHelpText(GR)){
 					continue;
@@ -67,7 +66,7 @@ public class MscApplication {
 					GS = GR.getGameState();
 					GS.gameOver = true;
 					GS.inProgress = false;
-				} else {//other error, no update 
+				} else {
 					System.out.println(GR.getgGameStatus().returnMessage());
 				}
 				printBoard(GR.getGameState().getGameBoard());
@@ -78,7 +77,6 @@ public class MscApplication {
 				System.out.println(GameMessages.TRY_AGAIN);
 				String input = inputs.take().toUpperCase();
 				if(input.equals("Y") || input.equals(GameMessages.YES)){
-					//reset function?
 					GS.setup = true;
 					GS.gameOver = false;
 					GS.inProgress = false;
@@ -92,9 +90,11 @@ public class MscApplication {
 
 	public static boolean showHelpText(GameResponse GR){
 		if(GR.getgGameStatus().getShowHelpText()){
-			System.out.println(GameMessages.INPUT_HELP_TEXT);
-			System.out.println(GameMessages.INPUT_FLAG_HELP_TEXT);
-			System.out.println(GameMessages.INPUT_HELP_HELP_TEXT);
+			if(GR.getGameState().inProgress){
+				System.out.println(GamePhrases.GameMessages.INPUT_HELP_TEXT);
+				System.out.println(GamePhrases.GameMessages.INPUT_FLAG_HELP_TEXT);
+				System.out.println(GamePhrases.GameMessages.INPUT_HELP_HELP_TEXT);
+			}
 			return true;
 		}
 		return false;
@@ -129,7 +129,6 @@ public class MscApplication {
 
 	public static GameResponse parseUserInput(BlockingQueue<String> inputs, GameState GS){
 		return GameUtilities.parseUserInput(inputs, GS);
-		//return GameUtilities.parseUserInput(inputs, Optional.of(GS));
 	}
 
 	public GameResponse returnGameResponse(int x, int y, GameState gameState){

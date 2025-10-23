@@ -118,10 +118,22 @@ public class MscApplication {
 		for(int r = 0; r < GB.returnGameBoardRow(0).length; r++){
 			GameCell[] row = GB.returnGameBoardRow(r);
 			for(int c = 0; c < row.length; c++){
+				String returnS = "";
 				if(c == 0){
 					System.out.print(" " + y++ + " ");
 				}
-				System.out.print(row[c].clicked ? row[c].mine ?  " " + "M" + " " : " " + row[c].flag + " " : " X ");
+				if(row[c].clicked){
+					if(row[c].flagged){
+						returnS = " F ";
+					} else if(row[c].mine){
+						returnS = " M ";
+					} else {
+						returnS = " " + row[c].flag + " ";
+					}
+				} else {
+					returnS = " X ";
+				}
+				System.out.print(returnS);
 			}
 			System.out.println();
 		}

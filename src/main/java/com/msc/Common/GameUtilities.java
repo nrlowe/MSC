@@ -1,6 +1,5 @@
 package com.msc.Common;
 
-import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 
 import com.msc.Common.GamePhrases.GameMessages;
@@ -52,15 +51,18 @@ public class GameUtilities {
 
     public static GameResponse parseMoveInput(String input, GameState GS){
         GameResponse errorGR = new GameResponse(GS, new GameStatus(true, GamePhrases.GameMessages.USER_INPUT_ERROR, GamePhrases.GameCodes.USER_INPUT_ERROR));
-        int[] selection = new int[2];
+        int[] selection = new int[3];
         try{
-            String[] split = input.split(",");
-            if(split.length != 2){
-                throw new Error();
-            } else {
+            String[] split = input.split("[\\s,]+");
+            if(split.length < 2 || split.length > 3){
+                throw new Exception();
+            } else if(split.length >= 2) {
                 for(int i = 0; i < 2; i++){
                     selection[i] = Integer.parseInt(split[i]);
-                }  
+                }
+                if(split[2] != null){
+                    selection[2] = split[2].equals("F") ? 1 : 0;  
+                }
             }
             if(validGameCell(selection[0], selection[1], GS.getGameBoard().returnGameBoardRow(0).length)){
                return updateGameBoard(selection, GS);
@@ -88,7 +90,10 @@ public class GameUtilities {
         GameBoard GB = GS.getGameBoard();
         GameCell gc = GB.getGameBoard()[userMove[0]][userMove[1]];
         gc.clicked = true;
-        if(gc.mine){
+        if(userMove[2] > 0){
+            gc.flagged = true;
+        }
+        if(gc.mine && !gc.flagged){
             return new GameResponse(GS, new GameStatus(false, GamePhrases.GameMessages.USER_MOVE_REG, GamePhrases.GameCodes.GAME_OVER));
         } else {
             return new GameResponse(GS, new GameStatus(false, GamePhrases.GameMessages.USER_MOVE_REG, GamePhrases.GameCodes.SUCCESS_MOVE));

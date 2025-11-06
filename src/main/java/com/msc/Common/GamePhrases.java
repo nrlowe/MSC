@@ -3,6 +3,9 @@ package com.msc.Common;
 public class GamePhrases {
     public class GameMessages {
         public static final String HELP = "help"; 
+        public static final String PRINT_BOARD = "Type 'PB' to print the current game board";
+        public static final String END_GAME = "Type 'EG' to end the game";
+        public static final String EXIT_GAME = "Type 'EXIT' to exit the program";
         public static final String INTRO_TEXT = "To begin please input the size of the grid and number of mines";
         public static final String INPUT_HELP_TEXT = "All entries should be in the pattern of 'NUM,NUM' with no space";
         public static final String INPUT_FLAG_HELP_TEXT = "To place flags - 'NUM,NUM F' with a space";

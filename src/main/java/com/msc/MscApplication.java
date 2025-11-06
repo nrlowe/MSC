@@ -40,6 +40,7 @@ public class MscApplication {
 		}, "input-thread");
         inputThread.start();
 		GameState GS = new GameState();
+		GameStatus gameStatus = new GameStatus(false, null, 0);
 		while(!GS.terminateState){
 			if(GS.setup){
 				System.out.println(GamePhrases.GameMessages.INTRO_TEXT);
@@ -51,12 +52,16 @@ public class MscApplication {
 				}
 				printStatus(GR);
 				GS = GR.getGameState();
+				gameStatus = GR.getgGameStatus();
 				printBoard(GS.getGameBoard());
 			}
 			if(GS.inProgress){
-				System.out.println(GamePhrases.GameMessages.INPUT_FLAG_HELP_TEXT);
+				if(!gameStatus.getShowHelpText()){
+					System.out.println(GamePhrases.GameMessages.INPUT_FLAG_HELP_TEXT);
+				}
 				GameResponse GR = parseUserInput(inputs, GS);
 				if(showHelpText(GR)){
+					gameStatus = GR.getgGameStatus();
 					continue;
 				}
 				if(GR.getgGameStatus().returnCode() == (GamePhrases.GameCodes.SUCCESS_MOVE)){
@@ -64,6 +69,7 @@ public class MscApplication {
 				} else if(GR.getgGameStatus().returnCode() == (GamePhrases.GameCodes.GAME_OVER)) {
 					System.out.println(GR.getgGameStatus().returnMessage());
 					GS = GR.getGameState();
+					gameStatus = GR.getgGameStatus();
 					GS.gameOver = true;
 					GS.inProgress = false;
 				} else {

@@ -14,13 +14,13 @@ public class GameUtilities {
             String input = inputs.take();
             GameResponse GR = new GameResponse(GO, new GameStatus(false, null, GamePhrases.GameCodes.SUCCESS));
             if(input.toLowerCase().equals(GameMessages.HELP)){
-                GR.getgGameStatus().setShowHelpText(true);
+                GR.getgGameStatus().getUserAction().flipAllValues(GameMessages.HELP);
             } else if(input.toLowerCase().equals(GameMessages.END_GAME)){
-
+                GR.getgGameStatus().getUserAction().flipAllValues(GameMessages.END_GAME);
             } else if(input.toLowerCase().equals(GameMessages.EXIT_GAME)){
-
+                GR.getgGameStatus().getUserAction().flipAllValues(GameMessages.EXIT_GAME);
             } else if(input.toLowerCase().equals(GameMessages.PRINT_BOARD)){
-
+                GR.getgGameStatus().getUserAction().flipAllValues(GameMessages.PRINT_BOARD);
             } else {
                 return GO.setup ? parseSetUp(input, GO) : parseMoveInput(input, GO);
             }

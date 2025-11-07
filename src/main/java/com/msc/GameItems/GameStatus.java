@@ -1,8 +1,10 @@
 package com.msc.GameItems;
 
+import com.msc.Common.UserAction;
+
 public class GameStatus {
     public boolean error = false;
-    public boolean showHelpText = false;
+    public UserAction userAction;
     public String errorMessage;
     public int errorCode;
 
@@ -10,6 +12,7 @@ public class GameStatus {
         this.error = error;
         this.errorMessage = message;
         this.errorCode = code;
+        this.userAction = new UserAction();
     }
 
     public String returnMessage() {
@@ -20,11 +23,11 @@ public class GameStatus {
         return this.errorCode;
     }
 
-    public void setShowHelpText(boolean ht){
-        this.showHelpText = ht;
+    public UserAction getUserAction(){
+        return userAction;
     }
     
-    public boolean getShowHelpText(){
-        return showHelpText;
+    public void setUserAction(UserAction ua){
+        this.userAction = ua;
     }
 }
